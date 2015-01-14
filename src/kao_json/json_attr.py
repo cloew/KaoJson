@@ -1,5 +1,5 @@
 
-class JsonAttribute:
+class JsonAttr:
     """ Represents a Json field attribute """
     
     def __init__(self, name, resultMethod):
