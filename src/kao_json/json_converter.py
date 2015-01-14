@@ -14,5 +14,10 @@ class JsonConverter:
             json = {}
             attrs = self.config[self.object.__class__]
             for attr in attrs:
-                json[attr.name] = attr.value(self.object, *args, **kwargs)
+                value = attr.value(self.object, *args, **kwargs)
+                json[attr.name] = self.newConverter(value).toJson(*args, **kwargs)
         return json
+        
+    def newConverter(self, object):
+        """ Return a new converter object """
+        return JsonConverter(object, self.config)
