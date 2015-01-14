@@ -7,9 +7,9 @@ class JsonConverter:
         self.object = object
         self.config = config
         
-    def toJson(self, *args, **kwargs):
+    def toJson(self, **kwargs):
         """ Convert the object to JSON """
-        return self.converterMethod(*args, **kwargs)
+        return self.converterMethod(**kwargs)
         
     @property
     def converterMethod(self):
@@ -25,19 +25,20 @@ class JsonConverter:
         """ Return a new converter object """
         return JsonConverter(object, self.config)
         
-    def convertList(self, *args, **kwargs):
+    def convertList(self, **kwargs):
         """ Convert a list to JSON """
-        return [self.newConverter(e).toJson(*args, **kwargs) for e in self.object]
+        return [self.newConverter(e).toJson(**kwargs) for e in self.object]
         
-    def convertObject(self, *args, **kwargs):
+    def convertObject(self, **kwargs):
         """ Convert an object to JSON """
         json = {}
         attrs = self.config[self.object.__class__]
         for attr in attrs:
-            value = attr.value(self.object, *args, **kwargs)
-            json[attr.name] = self.newConverter(value).toJson(*args, **kwargs)
+            attrArgs = {arg:kwargs[arg] for arg in attr.args}
+            value = attr.value(self.object, **attrArgs)
+            json[attr.name] = self.newConverter(value).toJson(**kwargs)
         return json
         
-    def convertPrimitive(self, *args, **kwargs):
+    def convertPrimitive(self, **kwargs):
         """ Convert a primitive to JSON """
         return self.object
