@@ -8,6 +8,6 @@ class JsonAttr:
         self.resultMethod = resultMethod
         self.args = args
         
-    def value(self, object, **kwargs):
+    def value(self, object, *args):
         """ Return the value of this attribute """
-        return self.resultMethod(object, **kwargs)
+        return self.resultMethod(object, *args)

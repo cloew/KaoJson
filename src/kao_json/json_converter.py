@@ -34,8 +34,8 @@ class JsonConverter:
         json = {}
         attrs = self.config[self.object.__class__]
         for attr in attrs:
-            attrArgs = {arg:kwargs[arg] for arg in attr.args}
-            value = attr.value(self.object, **attrArgs)
+            args = [kwargs[arg] for arg in attr.args]
+            value = attr.value(self.object, *args)
             json[attr.name] = self.newConverter(value).toJson(**kwargs)
         return json
         
