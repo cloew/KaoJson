@@ -6,9 +6,13 @@ class JsonFactory:
     
     def __init__(self, config):
         """ Initialize the Json Factory """
-        # if type(list) not in config:
-            # config[type(list)] = JsonAttr()
-        self.classToConfig = config
+        self.classToConfig = {}
+        for key, value in config:
+            if type(key) == list:
+                for newKey in key:
+                    self.classToConfig[newKey] = value
+            else:
+                self.classToConfig[key] = value
         
     def converterFor(self, object):
         """ Convert the provided object """
