@@ -45,9 +45,18 @@ class JsonConverter:
         for attr in self.attrs: # self.attrs set during findAttrs
             args = [kwargs[arg] for arg in attr.args]
             value = attr.value(self.object, *args)
-            json[attr.name] = self.newConverter(value).toJson(**kwargs)
+            newKwargs = self.getKwargsForNextConverter(attr, kwargs)
+            json[attr.name] = self.newConverter(value).toJson(**newKwargs)
         return json
         
     def convertPrimitive(self, **kwargs):
         """ Convert a primitive to JSON """
         return self.object
+        
+    def getKwargsForNextConverter(self, attr, kwargs):
+        """ Return the Keyword arguments to use in the next Json Converter """
+        newKwargs = kwargs
+        if attr.extraArgsProvider:
+            newKwargs = dict(kwargs)
+            newKwargs.update(attr.extraArgsProvider(self.object))
+        return newKwargs
