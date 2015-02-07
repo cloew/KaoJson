@@ -8,4 +8,12 @@ class FieldAttr(JsonAttr):
         """ Initialize the field attribute """
         if field is None:
             field = name
-        JsonAttr.__init__(self, name, attrgetter(field), extraArgsProvider=extraArgsProvider)
+        self.field = field
+        JsonAttr.__init__(self, name, self.getFieldValue, extraArgsProvider=extraArgsProvider)
+        
+    def getFieldValue(self, object):
+        """ Return the field attribute for the given object """
+        value = object
+        for fieldName in self.field.split('.'):
+            value = getattr(value, fieldName)
+        return value
