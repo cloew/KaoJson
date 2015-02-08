@@ -58,5 +58,5 @@ class JsonConverter:
         newKwargs = kwargs
         if attr.extraArgsProvider:
             newKwargs = dict(kwargs)
-            newKwargs.update(attr.extraArgsProvider(self.object))
+            newKwargs.update(attr.extraArgsProvider(self.object, kwargs))
         return newKwargs

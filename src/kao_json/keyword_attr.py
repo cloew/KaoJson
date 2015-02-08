@@ -3,11 +3,11 @@ from json_attr import JsonAttr
 class KeywordAttr(JsonAttr):
     """ Represents an attribute for the JSON that is based on a configured kwarg """
     
-    def __init__(self, name, keyword=None):
+    def __init__(self, name, keyword=None, extraArgsProvider=None):
         """ Initialize the keyword attribute """
         if keyword is None:
             keyword = name
-        JsonAttr.__init__(self, name, self.getKeyword, args=[keyword])
+        JsonAttr.__init__(self, name, self.getKeyword, args=[keyword], extraArgsProvider=extraArgsProvider)
         self.keyword = keyword
         
     def getKeyword(self, object, keywordValue):

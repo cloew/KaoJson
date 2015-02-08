@@ -17,3 +17,6 @@ class JsonFactory:
     def converterFor(self, object):
         """ Convert the provided object """
         return JsonConverter(object, self.classToConfig)
+        
+    def toJson(self, object, **kwargs):
+        return self.converterFor(object).toJson(**kwargs)
