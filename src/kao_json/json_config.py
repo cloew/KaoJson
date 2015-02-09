@@ -16,14 +16,15 @@ class JsonConfig:
         for cls in self.objectClasses:
             classToConfig[cls] = self
             
-    def inheritFrom(self, cls):
+    def inheritFrom(self, cls, ignore=[]):
         """ Tell this configuration to use the same attrs from the given class' configuration """
         self.inheritFromClass = cls
+        self.ignoreInheritedAttrs = set(ignore)
         return self
         
     def getAttrs(self, classToConfig):
         """ Return the attributes used for this object's config """
         attrs = []
         if self.inheritFromClass:
-            attrs = classToConfig[self.inheritFromClass]
+            attrs = [attr for attr in classToConfig[self.inheritFromClass].getAttrs(classToConfig) if attr.name not in self.ignoreInheritedAttrs]
         return attrs + self.attrs
