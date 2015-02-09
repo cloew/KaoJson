@@ -18,18 +18,18 @@ class JsonConverter:
         """ Return the proper converter method """
         if type(self.object) == list:
             return self.convertList
-        elif self.findAttrs(self.object.__class__):
+        elif self.findConfig(self.object.__class__):
             return self.convertObject
         else:
             return self.convertPrimitive
             
-    def findAttrs(self, cls):
-        """ Find the attrs by searching if the object class or any of its parents have been registered """
+    def findConfig(self, cls):
+        """ Find the config by searching if the object class or any of its parents have been registered """
         for currentClass in [cls] + list(inspect.getmro(cls)):
             if currentClass in self.config:
-                self.attrs = self.config[currentClass].attrs
+                self.objectConfig = self.config[currentClass]
                 break
-        return self.attrs is not None
+        return self.objectConfig is not None
         
     def newConverter(self, object):
         """ Return a new converter object """
@@ -42,7 +42,7 @@ class JsonConverter:
     def convertObject(self, **kwargs):
         """ Convert an object to JSON """
         json = {}
-        for attr in self.attrs: # self.attrs set during findAttrs
+        for attr in self.objectConfig.getAttrs(self.config): # self.objectConfig set during findConfig
             args = [kwargs[arg] for arg in attr.args]
             value = attr.value(self.object, *args)
             newKwargs = self.getKwargsForNextConverter(attr, kwargs)
