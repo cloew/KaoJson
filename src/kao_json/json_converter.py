@@ -27,7 +27,7 @@ class JsonConverter:
         """ Find the attrs by searching if the object class or any of its parents have been registered """
         for currentClass in [cls] + list(inspect.getmro(cls)):
             if currentClass in self.config:
-                self.attrs = self.config[currentClass]
+                self.attrs = self.config[currentClass].attrs
                 break
         return self.attrs is not None
         
