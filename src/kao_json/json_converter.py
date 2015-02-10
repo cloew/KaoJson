@@ -16,10 +16,10 @@ class JsonConverter:
     @property
     def converterMethod(self):
         """ Return the proper converter method """
-        if type(self.object) == list:
-            return self.convertList
-        elif self.findConfig(self.object.__class__):
+        if self.findConfig(self.object.__class__):
             return self.convertObject
+        elif hasattr(self.object, '__iter__') and type(self.object) != dict:
+            return self.convertList
         else:
             return self.convertPrimitive
             
