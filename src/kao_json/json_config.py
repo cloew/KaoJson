@@ -2,7 +2,7 @@
 class JsonConfig:
     """ Represents an object's configuration for transforming to JSON """
     
-    def __init__(self, objectClass, attrs):
+    def __init__(self, objectClass, attrs, optionalKwargs=None):
         """ Initialize the Json Config """
         self.objectClasses = objectClass
         if type(objectClass) != list:
@@ -10,6 +10,7 @@ class JsonConfig:
         
         self.attrs = attrs
         self.inheritFromClass = None
+        self.optionalKwargs = optionalKwargs
         
     def addConfig(self, classToConfig):
         """ Add this config to the class to Config dictionary used by the Json Factory """
@@ -28,3 +29,13 @@ class JsonConfig:
         if self.inheritFromClass:
             attrs = [attr for attr in classToConfig[self.inheritFromClass].getAttrs(classToConfig) if attr.name not in self.ignoreInheritedAttrs]
         return attrs + self.attrs
+        
+    def getKwargs(self, kwargs):
+        """ Return the attributes used for this object's config """
+        newKwargs = kwargs
+        if self.optionalKwargs:
+            newKwargs = dict(kwargs)
+            for key in self.optionalKwargs:
+                if key not in kwargs:
+                    newKwargs[key] = self.optionalKwargs[key]
+        return newKwargs

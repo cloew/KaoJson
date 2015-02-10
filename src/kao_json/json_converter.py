@@ -42,6 +42,7 @@ class JsonConverter:
     def convertObject(self, **kwargs):
         """ Convert an object to JSON """
         json = {}
+        kwargs = self.objectConfig.getKwargs(kwargs)
         for attr in self.objectConfig.getAttrs(self.config): # self.objectConfig set during findConfig
             args = [kwargs[arg] for arg in attr.args]
             value = attr.value(self.object, *args)
