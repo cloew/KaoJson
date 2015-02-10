@@ -7,7 +7,7 @@ class JsonConverter:
         """ Initialize the Json Converter """
         self.object = object
         self.config = config
-        self.attrs = None
+        self.objectConfig = None
         
     def toJson(self, **kwargs):
         """ Convert the object to JSON """
