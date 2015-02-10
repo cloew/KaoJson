@@ -9,7 +9,7 @@ class JsonFactory:
         """ Initialize the Json Factory """
         self.classToConfig = {}
         for config in configs:
-            if not config.__class__ is JsonConfig:
+            if not isinstance(config, JsonConfig):
                 config = JsonConfig(config[0], config[1])
             config.addConfig(self.classToConfig)
         

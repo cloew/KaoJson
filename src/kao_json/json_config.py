@@ -23,7 +23,7 @@ class JsonConfig:
         self.ignoreInheritedAttrs = set(ignore)
         return self
         
-    def getAttrs(self, classToConfig):
+    def getAttrs(self, object, classToConfig):
         """ Return the attributes used for this object's config """
         attrs = []
         if self.inheritFromClass:
