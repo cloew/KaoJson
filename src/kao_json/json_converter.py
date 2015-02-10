@@ -18,6 +18,8 @@ class JsonConverter:
         """ Return the proper converter method """
         if self.findConfig(self.object.__class__):
             return self.convertObject
+        elif type(self.object) is dict:
+            return self.convertDictionary
         elif hasattr(self.object, '__iter__') and type(self.object) != dict:
             return self.convertList
         else:
@@ -38,6 +40,10 @@ class JsonConverter:
     def convertList(self, **kwargs):
         """ Convert a list to JSON """
         return [self.newConverter(e).toJson(**kwargs) for e in self.object]
+        
+    def convertDictionary(self, **kwargs):
+        """ Convert a dictionary to JSON """
+        return {key:self.newConverter(value).toJson(**kwargs) for key, value in self.object.items()}
         
     def convertObject(self, **kwargs):
         """ Convert an object to JSON """
