@@ -27,7 +27,7 @@ class JsonConfig:
         """ Return the attributes used for this object's config """
         attrs = []
         if self.inheritFromClass:
-            attrs = [attr for attr in classToConfig[self.inheritFromClass].getAttrs(classToConfig) if attr.name not in self.ignoreInheritedAttrs]
+            attrs = [attr for attr in classToConfig[self.inheritFromClass].getAttrs(object, classToConfig) if attr.name not in self.ignoreInheritedAttrs]
         return attrs + self.attrs
         
     def getKwargs(self, kwargs):
