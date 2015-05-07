@@ -3,3 +3,4 @@ from json_config import JsonConfig
 from json_attr import JsonAttr
 from field_attr import FieldAttr
 from keyword_attr import KeywordAttr
+from static_attr import StaticAttr
