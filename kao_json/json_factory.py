@@ -1,6 +1,6 @@
-from json_config import JsonConfig
-from json_converter import JsonConverter
-from json_attr import JsonAttr
+from .json_config import JsonConfig
+from .json_converter import JsonConverter
+from .json_attr import JsonAttr
 
 class JsonFactory:
     """ Represents factory to convert objects to JSON """

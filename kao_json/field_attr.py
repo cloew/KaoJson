@@ -1,4 +1,4 @@
-from json_attr import JsonAttr
+from .json_attr import JsonAttr
 from operator import attrgetter
 
 class FieldAttr(JsonAttr):

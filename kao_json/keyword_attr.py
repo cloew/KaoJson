@@ -1,4 +1,4 @@
-from json_attr import JsonAttr
+from .json_attr import JsonAttr
 
 class KeywordAttr(JsonAttr):
     """ Represents an attribute for the JSON that is based on a configured kwarg """
