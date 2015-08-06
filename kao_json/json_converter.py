@@ -20,7 +20,7 @@ class JsonConverter:
             return self.convertObject
         elif type(self.object) is dict:
             return self.convertDictionary
-        elif hasattr(self.object, '__iter__') and type(self.object) != dict:
+        elif hasattr(self.object, '__iter__') and type(self.object) not in [dict, str]:
             return self.convertList
         else:
             return self.convertPrimitive
