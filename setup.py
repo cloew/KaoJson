@@ -6,5 +6,6 @@ setup(name='kao_json',
       author='Chris Loew',
       author_email='cloew123@gmail.com',
       #url='http://www.python.org/sigs/distutils-sig/',
-      packages=['kao_json'],
+      packages=['kao_json',
+                'kao_json.builders'],
      )
