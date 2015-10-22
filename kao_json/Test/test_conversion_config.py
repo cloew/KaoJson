@@ -32,3 +32,15 @@ class find(unittest.TestCase):
         """ Test that when no match is found, None is returned """
         config = ConversionConfig([])
         self.assertIsNone(config.find(A))
+
+class newConverter(unittest.TestCase):
+    """ Test cases of newConverter """
+        
+    def test_converterBuilt(self):
+        """ Test that the Converter was built properly """
+        value = "Dummy Value..."
+        config = ConversionConfig([])
+        converter = config.newConverter(value)
+        
+        self.assertEqual(converter.object, value)
+        self.assertEqual(converter.config, config)

@@ -1,3 +1,5 @@
+from .json_converter import JsonConverter
+
 from kao_decorators import proxy_for
 import inspect
 
@@ -21,3 +23,7 @@ class ConversionConfig:
         """ Generator to return the classes to check """
         yield cls
         yield from inspect.getmro(cls)
+        
+    def newConverter(self, value):
+        """ Return a new Converter for the given value """
+        return JsonConverter(value, self)
