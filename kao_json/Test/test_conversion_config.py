@@ -1,12 +1,7 @@
+from .class_hierarchy import A, AChild, AGrandchild
 from ..conversion_config import ConversionConfig
 import unittest
 
-class A:
-    pass
-class AChild(A):
-    pass
-class AGrandchild(AChild):
-    pass
 
 class find(unittest.TestCase):
     """ Test cases of find """
@@ -41,5 +36,5 @@ class newConverter(unittest.TestCase):
         config = ConversionConfig([])
         converter = config.newConverter(value)
         
-        self.assertEqual(converter.object, value)
+        self.assertEqual(converter.value, value)
         self.assertEqual(converter.config, config)

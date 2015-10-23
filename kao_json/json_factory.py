@@ -1,21 +1,13 @@
-from .json_config import JsonConfig
-from .json_converter import JsonConverter
-from .json_attr import JsonAttr
+from .conversion_config import ConversionConfig
+from .conversion_context import ConversionContext
 
 class JsonFactory:
     """ Represents factory to convert objects to JSON """
     
-    def __init__(self, configs):
+    def __init__(self, *configs):
         """ Initialize the Json Factory """
-        self.classToConfig = {}
-        for config in configs:
-            if not isinstance(config, JsonConfig):
-                config = JsonConfig(config[0], config[1])
-            config.addConfig(self.classToConfig)
-        
-    def converterFor(self, object):
-        """ Convert the provided object """
-        return JsonConverter(object, self.classToConfig)
+        self.config = ConversionConfig(configs)
         
     def toJson(self, object, **kwargs):
-        return self.converterFor(object).toJson(**kwargs)
+        context = ConversionContext(self.config, **kwargs)
+        return context.newConverter(object).toJson(context)
