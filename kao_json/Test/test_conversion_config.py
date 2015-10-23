@@ -1,5 +1,4 @@
 from ..conversion_config import ConversionConfig
-from ..json_config import JsonConfig
 import unittest
 
 class A:
@@ -14,16 +13,16 @@ class find(unittest.TestCase):
         
     def test_matchingClassFound(self):
         """ Test that a matching class is found properly """
-        expected = JsonConfig([A], [])
-        config = ConversionConfig([expected])
+        expected = "Dummy Config..."
+        config = ConversionConfig([{A:expected}])
         
         actual = config.find(A)
         self.assertEqual(expected, actual)
         
     def test_descendantClassFound(self):
         """ Test that a matching descendant class is found properly """
-        expected = JsonConfig([A], [])
-        config = ConversionConfig([expected])
+        expected = "Dummy Config..."
+        config = ConversionConfig([{A:expected}])
         
         actual = config.find(AGrandchild)
         self.assertEqual(expected, actual)

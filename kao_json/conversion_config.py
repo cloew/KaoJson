@@ -1,15 +1,16 @@
+from .iter_value import IterValue
 from .json_converter import JsonConverter
 
 from kao_decorators import proxy_for
 import inspect
 
-@proxy_for('configs', ['__contains__', '__iter__', '__len__'])
+@proxy_for('config', ['__contains__', '__iter__', '__len__'])
 class ConversionConfig:
     """ Represents the Conversion Configuration for a Json Factory """
     
-    def __init__(self, configs):
+    def __init__(self, configGroups):
         """ Initialize with the configs to wrap """
-        self.config = {cls:config for config in configs for cls in config.objectClasses}
+        self.config = {cls:configGroup[classes] for configGroup in configGroups for classes in configGroup for cls in IterValue(classes)}
         
     def find(self, cls):
         """ Return the config for the given class """
