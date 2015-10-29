@@ -1,4 +1,5 @@
 from .builders import ListBuilder, ObjectBuilder
+from collections.abc import Mapping, Iterable
 
 class JsonConverter:
     """ Represents a converter for a value """
@@ -13,9 +14,9 @@ class JsonConverter:
         config = self.config.find(type(self.value))
         if config:
             return config.convert(self.value, context)
-        elif type(self.value) is dict:
+        elif isinstance(self.value, Mapping):
             return ObjectBuilder(self.value).build(context)
-        elif hasattr(self.value, '__iter__') and type(self.value) not in [dict, str]:
+        elif isinstance(self.value, Iterable) and not isinstance(self.value, str):
             return ListBuilder(self.value).build(context)
         else:
             return self.value
