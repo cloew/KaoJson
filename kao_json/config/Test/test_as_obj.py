@@ -26,7 +26,8 @@ class convert(unittest.TestCase):
         actual = config.convert(value, context)
         
         for key, provider in d.items():
-            provider.assert_called_once_with(value)
+            context.providerContext.assert_any_call_with(key, value)
+            provider.assert_called_once_with(context.providerContext.return_value)
             
         ObjectBuilderMock.assert_called_once_with(expectedValues)
         ObjectBuilderMock.return_value.build.assert_called_once_with(context)

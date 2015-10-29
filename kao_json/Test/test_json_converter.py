@@ -4,6 +4,7 @@ from ..conversion_config import ConversionConfig
 from ..conversion_context import ConversionContext
 from ..json_converter import JsonConverter
 from ..config import AsObj
+from ..providers import ViaAttr
 
 from operator import attrgetter
 import unittest
@@ -29,7 +30,7 @@ class toJson(unittest.TestCase):
         value = (A(1), A(2), A(3))
         expected = [{'value':a.value} for a in value]
         
-        config = ConversionConfig([{A:AsObj(value=attrgetter('value'))}])
+        config = ConversionConfig([{A:AsObj(value=ViaAttr())}])
         context = ConversionContext(config)
         converter = JsonConverter(value, config)
         
