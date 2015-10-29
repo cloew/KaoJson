@@ -1,2 +1,4 @@
 git+git://github.com/cloew/KaoDecorators.git
 git+git://github.com/cloew/KaoDict.git
+
+-e .
