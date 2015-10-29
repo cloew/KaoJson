@@ -1,3 +1,4 @@
+from .providers import ProviderContext
 from kao_decorators import proxy_for
 
 @proxy_for('config', ['newConverter'])
@@ -9,4 +10,6 @@ class ConversionContext:
         self.config = config
         self.kwargs = kwargs
         
-    
+    def providerContext(self, name, obj):
+        """ Return a Provider Context """
+        return ProviderContext(name, obj, self.kwargs)

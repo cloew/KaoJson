@@ -9,5 +9,5 @@ class AsObj:
         
     def convert(self, value, context):
         """ Convert the Object Config in the given context """
-        values = {key:provider(value) for key, provider in self.providers.items()}
+        values = {key:provider(context.providerContext(key, value)) for key, provider in self.providers.items()}
         return ObjectBuilder(values).build(context)
