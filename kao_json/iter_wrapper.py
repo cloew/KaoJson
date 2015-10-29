@@ -1,5 +1,5 @@
 
-def IterValue(value):
+def IterWrapper(value):
     """ Return an iterable for the value """
     if hasattr(value, '__iter__'):
         return value

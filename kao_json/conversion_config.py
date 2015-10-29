@@ -1,4 +1,4 @@
-from .iter_value import IterValue
+from .iter_wrapper import IterWrapper
 from .json_converter import JsonConverter
 
 from kao_decorators import proxy_for
@@ -10,7 +10,7 @@ class ConversionConfig:
     
     def __init__(self, configGroups):
         """ Initialize with the configs to wrap """
-        self.config = {cls:configGroup[classes] for configGroup in configGroups for classes in configGroup for cls in IterValue(classes)}
+        self.config = {cls:configGroup[classes] for configGroup in configGroups for classes in configGroup for cls in IterWrapper(classes)}
         
     def find(self, cls):
         """ Return the config for the given class """
