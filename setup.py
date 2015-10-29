@@ -1,7 +1,7 @@
 from distutils.core import setup
 
 setup(name='kao_json',
-      version='0.1',
+      version='0.1.0',
       description='Python JSON Conversion Library',
       author='Chris Loew',
       author_email='cloew123@gmail.com',
@@ -9,4 +9,6 @@ setup(name='kao_json',
       packages=['kao_json',
                 'kao_json.builders',
                 'kao_json.config'],
+      install_requires = ['kao_decorators',
+                          'kao_dict']
      )
