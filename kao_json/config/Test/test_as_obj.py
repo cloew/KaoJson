@@ -2,11 +2,10 @@ from ..as_obj import AsObj
 import unittest
 from unittest.mock import Mock, patch
 
-class convert(unittest.TestCase):
-    """ Test cases of convert """
+class call(unittest.TestCase):
+    """ Test cases of call """
         
-    @patch('kao_json.config.as_obj.ObjectBuilder')
-    def test_providersUsed(self, ObjectBuilderMock):
+    def test_providersUsed(self):
         """ Test that the Providers are used """
         d = {}
         expectedValues = {}
@@ -18,17 +17,11 @@ class convert(unittest.TestCase):
             
         value = "Dummy Value..."
         context = Mock()
-        expected = ObjectBuilderMock.return_value.build.return_value
-            
+        
         config = AsObj(**d)
-        
-        
-        actual = config.convert(value, context)
+        actual = config(value, context)
         
         for key, provider in d.items():
             context.providerContext.assert_any_call_with(key, value)
             provider.assert_called_once_with(context.providerContext.return_value)
-            
-        ObjectBuilderMock.assert_called_once_with(expectedValues)
-        ObjectBuilderMock.return_value.build.assert_called_once_with(context)
-        self.assertEqual(expected, actual)
+        self.assertEqual(expectedValues, actual)

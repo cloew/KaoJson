@@ -13,7 +13,8 @@ class JsonConverter:
         """ Convert the object to JSON """
         config = self.config.find(type(self.value))
         if config:
-            return config.convert(self.value, context)
+            data = config(self.value, context)
+            return JsonConverter(data, self.config).toJson(context)
         elif isinstance(self.value, Mapping):
             return ObjectBuilder(self.value).build(context)
         elif isinstance(self.value, Iterable) and not isinstance(self.value, str):

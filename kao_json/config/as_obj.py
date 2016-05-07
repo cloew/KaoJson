@@ -7,7 +7,6 @@ class AsObj:
         """ Initialize with the providers """
         self.providers = providers
         
-    def convert(self, value, context):
+    def __call__(self, value, context):
         """ Convert the Object Config in the given context """
-        values = {key:provider(context.providerContext(key, value)) for key, provider in self.providers.items()}
-        return ObjectBuilder(values).build(context)
+        return {key:provider(context.providerContext(key, value)) for key, provider in self.providers.items()}
