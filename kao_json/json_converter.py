@@ -14,7 +14,7 @@ class JsonConverter:
         config = self.config.find(type(self.value))
         if config:
             data = config(self.value, context)
-            return JsonConverter(data, self.config).toJson(context)
+            return self.config.newConverter(data).toJson(context)
         elif isinstance(self.value, Mapping):
             return ObjectBuilder(self.value).build(context)
         elif isinstance(self.value, Iterable) and not isinstance(self.value, str):
