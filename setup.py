@@ -1,7 +1,7 @@
 from distutils.core import setup
 
 setup(name='kao_json',
-      version='0.3.0',
+      version='0.3.1',
       description='Python JSON Conversion Library',
       author='Chris Loew',
       author_email='cloew123@gmail.com',
